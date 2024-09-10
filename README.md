@@ -3,8 +3,7 @@
 ### ¿Qué es Git Bash?
 > Git Bash es una aplicación que te permite usar Git en tu
 computadora.
-
-##Funcionamiento de Git Bash
+## Funcionamiento de Git Bash
 
 ### Comandos aprendidos
 - `pwd: present working directory` Esto lo que hace es qué nos dice en que directorio estamos. 
