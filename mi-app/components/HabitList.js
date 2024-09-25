@@ -1,9 +1,10 @@
 import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import HabitItem from './HabitItem';
 
 const HabitList = ({ habits, onToggleCompletion, onHabitNameChange }) => {
   return (
-    <div className="habit-list">
+    <View style={styles.habitList}>
       {habits.map((habit, index) => (
         <HabitItem 
           key={index} 
@@ -12,8 +13,14 @@ const HabitList = ({ habits, onToggleCompletion, onHabitNameChange }) => {
           onNameChange={(newName) => onHabitNameChange(index, newName)} 
         />
       ))}
-    </div>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  habitList: {
+    padding: 10,
+  },
+});
 
 export default HabitList;
