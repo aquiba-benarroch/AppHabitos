@@ -20,6 +20,7 @@ const HabitList = ({ habits, onToggleCompletion, onHabitNameChange }) => {
 const styles = StyleSheet.create({
   habitList: {
     padding: 10,
+    flexGrow: 1,
   },
 });
 

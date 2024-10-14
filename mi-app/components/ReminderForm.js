@@ -74,6 +74,7 @@ const ReminderForm = ({ onSave }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    flexGrow: 1,
   },
   input: {
     borderWidth: 1,

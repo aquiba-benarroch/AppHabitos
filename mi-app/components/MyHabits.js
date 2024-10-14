@@ -11,7 +11,7 @@ const MyHabits = ({ habits }) => {
         renderItem={({ item }) => (
           <View style={styles.habitItem}>
             <Text style={styles.habitName}>
-              <Text style={styles.bold}>{item.name}</Text>: {item.description}
+              <Text style={styles.bold}>{item.name}</Text> {item.description}
             </Text>
           </View>
         )}
@@ -23,6 +23,7 @@ const MyHabits = ({ habits }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    flexGrow: 1,
   },
   header: {
     fontSize: 24,

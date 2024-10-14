@@ -1,10 +1,61 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Button } from 'react-native';
 import HabitList from './components/HabitList';
 import ProgressCircle from './components/ProgressCircle';
 import DailyActivities from './components/DailyActivities';
 import AddHabitOrReminder from './components/AddHabitOrReminder';
 import MyHabits from './components/MyHabits';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+function HomeScreen({ navigation, habits, reminders, addHabit, addReminder, toggleHabitCompletion, handleHabitNameChange }) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Gestión de Hábitos y Recordatorios</Text>
+
+      <ScrollView contentContainerStyle={styles.scrollViewContent} keyboardShouldPersistTaps='handled'>
+        <AddHabitOrReminder 
+          onAddHabit={addHabit} 
+          onAddReminder={addReminder} 
+        />
+
+        <ProgressCircle habits={habits} />
+
+        <HabitList 
+          habits={habits} 
+          onToggleCompletion={toggleHabitCompletion} 
+          onHabitNameChange={handleHabitNameChange}
+        />
+
+        <DailyActivities reminders={reminders} />
+
+        <MyHabits habits={habits} />
+
+        <Button
+          title="Ir a Pantalla de Hábitos"
+          onPress={() => navigation.navigate('Habits')}
+        />
+      </ScrollView>
+    </View>
+  );
+}
+
+function HabitScreen({habits, toggleHabitCompletion, handleHabitNameChange}) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Pantalla de Hábitos</Text>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <HabitList 
+          habits={habits}
+          onToggleCompletion={toggleHabitCompletion} 
+          onHabitNameChange={handleHabitNameChange}
+        />
+      </ScrollView>
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
 
 function App() {
   const [habits, setHabits] = useState([]);
@@ -39,28 +90,33 @@ function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Gestión de Hábitos y Recordatorios</Text>
-
-      <AddHabitOrReminder 
-        onAddHabit={addHabit} 
-        onAddReminder={addReminder} 
-      />
-
-      <ProgressCircle habits={habits} />
-
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <HabitList 
-          habits={habits} 
-          onToggleCompletion={toggleHabitCompletion} 
-          onHabitNameChange={handleHabitNameChange}
-        />
-
-        <DailyActivities reminders={reminders} />
-
-        <MyHabits habits={habits} />
-      </ScrollView>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home">
+          {props => (
+            <HomeScreen
+              {...props}
+              habits={habits}
+              reminders={reminders}
+              addHabit={addHabit}
+              addReminder={addReminder}
+              toggleHabitCompletion={toggleHabitCompletion}
+              handleHabitNameChange={handleHabitNameChange}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Habits"> 
+        {props => (
+          <HabitScreen
+          {...props}
+          habits = {habits}
+          toggleHabitCompletion={toggleHabitCompletion}
+          handleHabitNameChange={handleHabitNameChange}
+          />
+        )}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -83,4 +139,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-

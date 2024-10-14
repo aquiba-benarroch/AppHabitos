@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     alignItems: 'center',
+    flexGrow: 1,
   },
   heading: {
     fontSize: 18,
